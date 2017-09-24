@@ -208,7 +208,6 @@
 				07DBB1E61CCB0A9000D68648 /* Oscillator.m */,
 			);
 			name = Oscillator;
-			path = ../SineSynth;
 			sourceTree = "<group>";
 		};
 		07DBB1B61CCB00F900D68648 /* WaveSynthFramework */ = {
