@@ -1,5 +1,7 @@
 # AUInstrument
 
+## note - this exploration pre-dates Apple's own AUv3 Instrument sample code.  Apple's sample code is more current and likely a better example today.
+
 AUInstrument can be used as a starting point for an Audio Unit v3 plugin for iOS.  It consists of 3 targets:
 
  - AUInstrumentDemoApp:  A stand alone application that hosts (and installs) the AU Extension
