@@ -9,7 +9,7 @@
 #ifndef MIDIConstants_h
 #define MIDIConstants_h
 
-typedef NS_ENUM(NSUInteger, MIDIMessageType)
+typedef NS_ENUM(NSUInteger, myMIDIMessageType)
 {
     /* Note off */
     MIDIMessageType_NoteOff = 0x80,

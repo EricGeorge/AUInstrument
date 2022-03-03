@@ -10,57 +10,40 @@
 
 const double twoPI = 2 * M_PI;
 
-@interface Oscillator ()
-{
-    double _phase;
-    double _phaseIncrement;
+
+Oscillator::Oscillator ()
+    : _wave(OSCILLATOR_WAVE_SINE)
+    , _frequency(440.0)
+    , _sampleRate(44100)
+    , _phase(0.0) {
+        updateIncrement();
 }
 
-- (void) updateIncrement;
-
-@end
-
-
-@implementation Oscillator
-
-- (instancetype)init
-{
-    if (self = [super init])
-    {
-        self.wave = OSCILLATOR_WAVE_SINE;
-        self.frequency = 440.0;
-        self.sampleRate = 44100;
-        _phase = 0.0;
-        
-        [self updateIncrement];
-    }
-    
-    return self;
-}
-
-- (void) setSampleRate:(double)sampleRate
-{
+void Oscillator::setSampleRate(double sampleRate) {
     _sampleRate = sampleRate;
-    [self updateIncrement];
+    updateIncrement();
 }
 
-- (void) setFrequency:(double)frequency
-{
+void Oscillator::setFrequency(double frequency) {
     _frequency = frequency;
-    [self updateIncrement];
+    updateIncrement();
 }
 
-- (void) updateIncrement
-{
+void Oscillator::setWave(OscillatorWave wave) {
+    _wave = wave;
+}
+
+OscillatorWave Oscillator::getWave() {
+    return _wave;
+}
+
+void Oscillator::updateIncrement() {
     _phaseIncrement = _frequency * twoPI / _sampleRate;
 }
 
-- (double) nextSample
-{
+double Oscillator::nextSample() {
     double sample = 0.0;
-    
-    switch (self.wave)
-    {
+    switch (_wave) {
         case OSCILLATOR_WAVE_SINE:
             sample = sin(_phase);
             break;
@@ -93,4 +76,3 @@ const double twoPI = 2 * M_PI;
     return sample;
 }
 
-@end

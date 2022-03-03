@@ -84,13 +84,15 @@
         
         _volumeParameter = [parameterTree valueForKey:volumeParamKey];
         
+        __weak __typeof(self) weakSelf = self;
         _parameterObserverToken = [parameterTree tokenByAddingParameterObserver:^(AUParameterAddress address, AUValue value) {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                if (address == _volumeParameter.address)
-                {
-                    [self updateVolume];
+                __strong __typeof(weakSelf) Self = weakSelf;
+                if (Self) {
+                    if (address == Self->_volumeParameter.address) {
+                        [Self updateVolume];
+                    }
                 }
-
             });
         }];
         

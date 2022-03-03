@@ -48,14 +48,14 @@
                                              options:kAudioComponentInstantiation_LoadOutOfProcess
                                    completionHandler:^ (AVAudioUnit * __nullable audioUnit, NSError * __nullable error)
      {
-         _synthNode = audioUnit;
-         self.synth = _synthNode.audioUnit;
-         self.synthAU = _synthNode.AUAudioUnit;
+         self->_synthNode = audioUnit;
+         self.synth = self->_synthNode.audioUnit;
+         self.synthAU = self->_synthNode.AUAudioUnit;
          
-         [_engine attachNode:_synthNode];
+         [self->_engine attachNode:self->_synthNode];
          
          AVAudioFormat *stereoFormat = [[AVAudioFormat alloc] initStandardFormatWithSampleRate:hardwareFormat.sampleRate channels:2];
-         [_engine connect:_synthNode to:[_engine mainMixerNode] format:stereoFormat];
+         [self->_engine connect:self->_synthNode to:[self->_engine mainMixerNode] format:stereoFormat];
 
          [self startEngine];
          
