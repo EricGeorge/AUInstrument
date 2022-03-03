@@ -12,14 +12,14 @@
 #import "Utility.hpp"
 
 WaveSynthProc::WaveSynthProc()
-{
+    : osc() {
+        
     sampleRate = 44100.0;
     frequencyScale = 2. * M_PI / sampleRate;
     
     outBufferListPtr = nullptr;
     
-    osc = [[Oscillator alloc] init];
-    osc.wave = OSCILLATOR_WAVE_SINE;
+    osc.setWave(OSCILLATOR_WAVE_SINE);
     noteOn = NO;
     velocity = 0;
     volume = 0.1;
@@ -45,7 +45,7 @@ void WaveSynthProc::setParameter(AUParameterAddress address, AUValue value)
             volume = clamp(value, 0.001f, 1.0f);
             break;
         case WaveSynthProc::InstrumentParamWaveform:
-            osc.wave = (OscillatorWave)value;
+            osc.setWave((OscillatorWave)value);
             break;
     }
 }
@@ -60,7 +60,7 @@ AUValue WaveSynthProc::getParameter(AUParameterAddress address)
             value = volume;
             break;
         case InstrumentParamWaveform:
-            value = osc.wave;
+            value = osc.getWave();
             break;
     }
     
@@ -91,7 +91,7 @@ void WaveSynthProc::handleMIDIEvent(AUMIDIEvent const& midiEvent)
             velocity = 0;
             break;
         case MIDIMessageType_NoteOn:
-            osc.frequency = noteToHz(event.data1);
+            osc.setFrequency(noteToHz(event.data1));
             velocity = event.data2;
             noteOn = YES;
             break;
@@ -107,7 +107,7 @@ void WaveSynthProc::process(AUAudioFrameCount frameCount, AUAudioFrameCount buff
     {
         for (AUAudioFrameCount i = 0; i < frameCount; ++i)
         {
-            outL[i] = outR[i] = [osc nextSample] * (double)velocity / 127.0 * volume;
+            outL[i] = outR[i] = osc.nextSample() * (double)velocity / 127.0 * volume;
         }
     }
 }

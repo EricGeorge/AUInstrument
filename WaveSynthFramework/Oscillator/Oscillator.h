@@ -9,13 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "WaveSynthConstants.h"
 
-@interface Oscillator : NSObject
+class Oscillator {
+    double _phase;
+    double _phaseIncrement;
+    OscillatorWave _wave;
+    double _frequency;
+    double _sampleRate;
 
-@property (nonatomic, assign) OscillatorWave wave;
-@property (nonatomic, assign) double frequency;
-@property (nonatomic, assign) double sampleRate;
-
-- (double) nextSample;
-
-@end
-
+    void updateIncrement();
+    
+public:
+    Oscillator();
+    void setSampleRate(double sampleRate);
+    void setFrequency(double frequency);
+    void setWave(OscillatorWave wave);
+    OscillatorWave getWave();
+    double nextSample();
+};

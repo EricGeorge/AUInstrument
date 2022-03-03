@@ -39,7 +39,7 @@ private:
     
     AudioBufferList* outBufferListPtr;
     
-    Oscillator *osc;
+    Oscillator osc;
     BOOL noteOn;
     uint8_t velocity;
     float volume;

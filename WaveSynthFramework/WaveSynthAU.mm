@@ -161,6 +161,7 @@
      render, we're doing it wrong.
      */
     __block WaveSynthProc *state = &_kernel;
+    __block BufferedOutputBus *outputBusBuffer = &_outputBusBuffer;
     
     return ^AUAudioUnitStatus(
                               AudioUnitRenderActionFlags *actionFlags,
@@ -171,7 +172,7 @@
                               const AURenderEvent        *realtimeEventListHead,
                               AURenderPullInputBlock      pullInputBlock)
     {
-        _outputBusBuffer.prepareOutputBufferList(outputData, frameCount, true);
+        outputBusBuffer->prepareOutputBufferList(outputData, frameCount, true);
         state->setBuffers(outputData);		
         state->processWithEvents(timestamp, frameCount, realtimeEventListHead);
         

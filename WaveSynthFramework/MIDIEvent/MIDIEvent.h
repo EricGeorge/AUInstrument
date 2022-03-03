@@ -13,7 +13,7 @@
 
 @interface MIDIEvent : NSObject
 
-@property(nonatomic, assign)MIDIMessageType message;
+@property(nonatomic, assign)myMIDIMessageType message;
 @property(nonatomic, assign)uint16_t messageLength;
 @property(nonatomic, assign)uint8_t channel;
 @property(nonatomic, assign)uint8_t data1;
